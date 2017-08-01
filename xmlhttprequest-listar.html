@@ -1,0 +1,80 @@
+<html>
+    <body>
+
+        <table id="registros">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <script>    
+            const tbody = document.querySelector("table#registros tbody")
+
+
+            const asignarDatos = persona => {
+                /*const tr = document.createElement("tr")
+                const tdNombre = document.createElement("td")
+                const tdApellido = document.createElement("td")
+                const tdId = document.createElement("td")
+
+                tdNombre.innerHTML = persona.nombre
+                tdApellido.innerHTML = persona.apellido
+                tdId.innerHTML = persona.id
+
+                tr.appendChild(tdId)
+                tr.appendChild(tdNombre)
+                tr.appendChild(tdApellido)
+
+                tr.addEventListener("click", ()=>{
+                    console.log("click")
+                })
+
+                tbody.appendChild(tr)*/
+
+                tbody.innerHTML += `
+                    <tr data-edad="${persona.edad}">
+                        <td>${persona.id}</td>
+                        <td>${persona.nombre}</td>
+                        <td>${persona.apellido}</td>
+                    </tr>
+                `
+            }
+
+            const obj = new XMLHttpRequest()
+            obj.onreadystatechange = function(){
+                if(this.readyState==4 && this.status==200) {
+                    const personas = JSON.parse(this.responseText)
+                    const menores = personas.filter( item => {
+                        return item.edad < 18
+                    })
+                    for(let persona of menores) {
+                        asignarDatos(persona)
+                        // console.log(persona)
+                    }
+
+                    const trBody = document.querySelectorAll("tbody tr")
+
+                    trBody.forEach(fila=>{
+                        fila.addEventListener("click", function(){
+                            const edad = this.getAttribute("data-edad")
+                            console.log(edad)
+                        })
+                    })
+
+                    
+                }
+            }
+
+
+            obj.open("get", "http://javascript.tibajodemanda.com/listar", true)
+            obj.send()
+        </script>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <script>
+            const promesa = new Promise(
+                (resolve, reject) => {
+                    setTimeout(()=>{
+                        //resolve("Todo Ok")
+                        reject("Motivo: se demoró mucho el servidor")
+                    }, 4000)
+                }
+            )
+
+            promesa.then(()=>{
+                console.log("Se cumplió la promesa")
+            })
+
+            promesa.catch(error=>{
+                console.log(error)
+                //console.log("No se cumplió la promesa")
+            })
+
+
+
+        </script>
+    </body>
+</html>

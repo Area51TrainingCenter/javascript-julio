@@ -1,0 +1,49 @@
+<html>
+    <body>
+        <h1></h1>
+        <select id="nombres">
+
+        </select>
+        <select></select>
+        <script>
+            // document.querySelector devuelve un único elemento
+
+            // document.querySelectorAll puede devolver uno o más elementos. Lo devuelto es del tipo NodeList
+
+            const selector = document.querySelector("select#nombres")
+            const h1 = document.querySelector("h1")
+
+            // Crear evento para el select
+            selector.addEventListener("change", ()=>{
+                //console.log(selector.value)
+                if(selector.value<=18) {
+                    h1.innerHTML = "Un adolescente"
+                } else if(selector.value>18 && selector.value<=30){
+                    h1.innerHTML = "Un joven"
+                } else {
+                    h1.innerHTML = "Un adulto"
+                }
+            })
+
+            /*const selectores = document.querySelectorAll("select")
+
+            console.log(selectores)*/
+
+            const obj = new XMLHttpRequest()
+            obj.onreadystatechange = function(){
+                if(this.readyState==4 && this.status==200){
+                    const datos = JSON.parse(this.responseText)
+
+                    datos.forEach(function(item, indice){
+                        selector.innerHTML += `<option value="${item.edad}">${item.nombre}</option>`
+                    })
+                    //console.log(JSON.parse(this.responseText))
+                }
+            }
+
+            obj.open("get", "http://javascript.tibajodemanda.com/listar", true)
+            obj.send()
+        </script>
+
+    </body>
+</html>

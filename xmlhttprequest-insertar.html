@@ -1,0 +1,42 @@
+<html>
+    <body>
+        <form>
+             <input type="text" placeholder="Nombre" id="nombre"><br>
+             <input type="text" placeholder="Apellido" id="apellido"><br>
+             <button type="button">Insertar</button>
+        </form>
+        <script>
+            const nombre = document.querySelector("#nombre")
+            const apellido = document.querySelector("#apellido")
+            const boton = document.querySelector("button")
+
+            const insertarEvento = ()=>{
+                const formData = new FormData()
+                formData.append("nombre", nombre.value)
+                formData.append("apellido", apellido.value)
+
+                const obj = new XMLHttpRequest()
+                obj.onreadystatechange = function(){
+                    if(this.readyState==4 && this.status==200) {
+                        console.log(this.responseText)
+                    } 
+                }
+
+                obj.onerror = function(){
+                    console.log(this.statusText)
+                }
+
+                obj.open("post", "http://javascript.tibajodemanda.com/insertar", true)
+                obj.send(formData)
+            }
+
+            boton.addEventListener("click", insertarEvento)
+
+
+
+
+ 
+        </script>
+
+    </body>
+</html>
