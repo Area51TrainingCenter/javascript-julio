@@ -1,0 +1,39 @@
+<html>
+    <body>
+        
+        <script>
+
+            const promesa = new Promise(
+                (resolve, reject)=> {
+                    const obj = new XMLHttpRequest()
+
+                    obj.onreadystatechange = function(){
+                        if(this.readyState==4 && this.status==200){
+                            const registros = JSON.parse(this.responseText)
+
+                            resolve(registros)
+                        } else if(this.readyState==4) {
+                            reject("no hay registros")
+                        }
+                    }
+
+                    obj.open("get", "http://javascript.tibajodemanda.com/listar", true)
+                    obj.send()
+
+                }
+            )
+
+            promesa.then(
+                (regs)=>{
+                    console.table(regs)
+                }
+            )
+
+
+
+
+
+
+        </script>
+    </body>
+</html>

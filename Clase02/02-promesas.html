@@ -1,0 +1,88 @@
+<html>
+    <body>
+        
+        <script>
+
+            class apiRest {
+                listar(metodo, url){
+                    const promesa = new Promise(
+                        (resolve, reject)=> {
+                            const obj = new XMLHttpRequest()
+
+                            obj.onreadystatechange = function(){
+                                if(this.readyState==4 && this.status==200){
+                                    const registros = JSON.parse(this.responseText)
+
+                                    resolve(registros)
+                                } else if(this.readyState==4) {
+                                    reject("no hay registros")
+                                }
+                            }
+
+                            obj.open(metodo, url, true)
+                            obj.send()
+
+                        }
+                    )
+
+                    return promesa
+                }
+
+                insertar(metodo, url, datos){
+                    const promesa = new Promise(
+                        (resolve, reject) => {
+                            const obj = new XMLHttpRequest()
+                            obj.onreadystatechange = function(){
+                                if(this.readyState==4 && this.status==200){
+                                    const reg = JSON.parse(this.responseText)
+
+                                    resolve(reg)
+                                } else if(this.readyState==4) {
+                                    reject("No hay datos")
+                                }
+                            }
+
+                            const formData = new FormData()
+                            formData.append("nombre", datos.nombre)
+                            formData.append("apellido", datos.apellido)
+
+                            obj.open(metodo, url, true)
+                            obj.send(formData)
+                        }
+                    )
+
+                    return promesa
+                }
+
+            }
+
+            const obj = new apiRest()
+            obj.listar("get", "http://javascript.tibajodemanda.com/listar")
+                .then(
+                    regs => {
+                        console.table(regs)
+
+                        return obj.insertar("post", "http://javascript.tibajodemanda.com/insertar", {nombre: "Melissa", apellido: "Villena"})
+                    }
+                )
+                .then(
+                    reg => {
+                        console.log(reg)
+                        return obj.listar("get", "http://javascript.tibajodemanda.com/listar")
+                    }
+                )
+                .then(
+                    registros => {
+                        console.table(registros)
+                    }
+                )
+                .catch(
+                    err => {
+                        console.log(err)
+                    }
+                )
+
+
+        </script>
+    </body>
+</html>
