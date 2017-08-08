@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <script>
+        function* generador() {
+            console.log("Paso 1")
+
+            yield "Paso 1 Ejecutado"
+
+            console.log("Paso 2")
+
+            yield "Paso 2 Ejecutado"
+
+            console.log("Paso 3")
+        }
+
+        const gen = generador()
+        gen.next()
+
+        </script>
+    </body>
+</html>

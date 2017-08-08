@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="utf8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Ingresar correo" id="correo">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Ingresar contraseña" id="contrasena">
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="btn btn-success" id="btnRegistrar">Registrar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+
+        <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+        <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBHW9Xnw9RvnYTBsJZNb12p5Sck3XpgXMs",
+            authDomain: "colegios-12e12.firebaseapp.com",
+            databaseURL: "https://colegios-12e12.firebaseio.com",
+            projectId: "colegios-12e12",
+            storageBucket: "colegios-12e12.appspot.com",
+            messagingSenderId: "212557051137"
+        };
+        firebase.initializeApp(config);
+
+        const correo = document.getElementById("correo"),
+              contrasena = document.getElementById("contrasena"),
+              boton = document.getElementById("btnRegistrar")
+
+        boton.addEventListener("click", e => {
+            e.preventDefault()
+
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(correo.value, contrasena.value)
+                .then(
+                    ()=> {
+                        console.log("usuario creado")
+                    }
+                )
+        })
+
+
+
+
+        </script>
+    </body>
+</html>

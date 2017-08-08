@@ -1,0 +1,77 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <script>
+            const tbody = document.querySelector("tbody")
+            const mostrar = registros => {
+                const filas = registros.map(
+                    item => {
+                        return `
+                            <tr>
+                                <td>${item.id}</td>
+                                <td>${item.nombre}-${item.apellido}</td>
+                            </tr>                                    
+                        `
+                    }
+                ).join("")
+
+                tbody.innerHTML = filas
+            }
+
+            fetch("http://javascript.tibajodemanda.com/listar")
+                .then(
+                    respuesta => {
+                        return respuesta.json()
+                    }
+                )
+                .then(
+                    registros => {
+
+                        mostrar(registros)
+
+
+                        const datos = new FormData()
+                        datos.append("nombre", "Marina")
+                        datos.append("apellido", "Díaz")
+                        datos.append("edad", 50)
+
+                        return fetch("http://javascript.tibajodemanda.com/insertar", {
+                            method: "post",
+                            body: datos
+                        })
+                    }
+                )
+                .then(
+                    registro => {
+                        console.log(registro)
+
+                        return fetch("http://javascript.tibajodemanda.com/listar")
+                    }
+                )
+                .then(
+                    respuesta => {
+                        return respuesta.json()
+                    }
+                )
+                .then(
+                    registros => {
+                        mostrar(registros)
+                    }
+                )
+
+        </script>
+    </body>
+</html>

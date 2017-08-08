@@ -1,0 +1,60 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <script>
+            const tbody = document.querySelector("tbody")
+
+            fetch("http://javascript.tibajodemanda.com/listar")
+                .then(
+                    respuesta => {
+                        return respuesta.json()
+                    }
+                )
+                .then(
+                    registros => {
+                        //for(let i=0; i<registros.length; i++) {}
+                        //registros.forEach(item => {})
+
+                        /*
+                        for(let item of registros) {
+                            const fila = `
+                                <tr>
+                                    <td>${item.id}</td>
+                                    <td>${item.nombre}-${item.apellido}</td>
+                                </tr>
+                            `
+
+                            tbody.innerHTML += fila
+                        }*/
+
+                        const filas = registros.map(
+                            item => {
+                                return `
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.nombre}-${item.apellido}</td>
+                                    </tr>                                    
+                                `
+                            }
+                        ).join("")
+                        //console.log(filas)
+                        tbody.innerHTML = filas
+                    }
+                )
+
+        </script>
+    </body>
+</html>

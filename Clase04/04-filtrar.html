@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <br>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Ingresa el nombre a buscar">
+                    </div>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre completo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", ()=>{
+            const rutaAPI = "http://localhost:1337"
+
+            const tbody = document.querySelector("tbody")
+            const input = document.querySelector("input")
+
+            function urlencodeFormData(fd){
+                var s = '';
+                function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+                for(var pair of fd.entries()){
+                    if(typeof pair[1]=='string'){
+                        s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+                    }
+                }
+                return s;
+            }
+
+            const funcionFiltrar = filtro => {
+                const filter = filtro=="" ? "-" : filtro
+
+                fetch(`${rutaAPI}/listarFiltro/${filter}`)
+                .then(
+                    respuesta => {
+                        return respuesta.json()
+                    }
+                )
+                .then(
+                    registros => {
+                        const filas = registros.map(
+                            item => {
+                                return `
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.nombre} ${item.apellido}</td>
+                                    </tr>
+                                `
+                            }
+                        ).join("")
+
+                        tbody.innerHTML = filas
+                    }
+                )
+            }
+
+            funcionFiltrar("-")
+
+            input.addEventListener("keyup", ()=> {
+                funcionFiltrar(input.value)
+            })
+
+        })
+        </script>
+
+
+    </body>
+</html>
