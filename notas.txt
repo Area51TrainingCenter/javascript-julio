@@ -1,2 +1,2 @@
 ejecutar npm install
-luego node Clase02/servidor
+luego node Clase02/servidor 
