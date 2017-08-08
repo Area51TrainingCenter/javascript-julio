@@ -1,1 +1,2 @@
-# javascript-julio
+# Javascript
+### Profesor: Sergio Hidalgo
