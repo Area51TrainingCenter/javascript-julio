@@ -1,5 +1,5 @@
 // Configuración
-const puerto = 1337
+const puerto = 1370
 const palabraSecreta = "adj#8kdW1899?9dlPor$$23#"
 const tiempoVidaToken = 20*60
 
@@ -63,6 +63,12 @@ const proteccion = expressJwt({
 })
 
 app.get("/listar", proteccion, (req, res, next) => {
+    res.json({
+        registros
+    })
+})
+
+app.get("/listar-registros", (req, res, next) => {
     res.json({
         registros
     })
