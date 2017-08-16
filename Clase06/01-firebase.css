@@ -1,0 +1,15 @@
+header {
+    background-color: black;
+    display: none
+}
+div.zona {
+    display: none;
+}
+
+div.zona.login {
+    display: block;
+}
+
+#btnCancelar, #btnActualizar {
+    display: none
+}

@@ -1,0 +1,50 @@
+<html>
+    <body>
+        <script>
+        
+/*        function Animal(){
+            this.nombreAnimal = "Tati"
+            this.nombre = function(){
+                console.log("Nombre es Tati")
+            }
+        }*/
+
+/*        function Animal(){
+        }
+
+        Animal.prototype.nombreAnimal = "Tati"
+        Animal.prototype.nombre = function(){
+            console.log("Nombre es Tati")
+        }*/
+
+        class Animal {
+
+            constructor(nombreMascota){
+                this.nombreAnimal = nombreMascota
+            }
+
+            nombre(){
+                console.log(`Nombre es ${this.nombreAnimal}`)
+            }
+        }
+
+        class Perro extends Animal {
+
+            constructor(nombre){
+                super(nombre)
+            }
+
+
+        }
+
+
+        const animal = new Animal("Dandy")
+        animal.nombre()
+
+        const perro = new Perro("Tabata")
+        perro.nombre()
+
+        
+        </script>
+    </body>
+</html>
